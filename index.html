@@ -30,6 +30,16 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col small">
+            <label class="label">密文模式</label>
+            <select id="mode" class="input">
+              <option value="standard">标准密文（包含盐与 IV，兼容）</option>
+              <option value="compact">短密文（减少长度）</option>
+            </select>
+          </div>
+        </div>
+
         <div class="actions">
           <button id="btnEncrypt" class="btn primary">加密 →</button>
           <button id="btnEncClear" class="btn">清空</button>
