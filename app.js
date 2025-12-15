@@ -5,10 +5,12 @@ const SALT_LEN = 16;
 const IV_LEN = 12; // AES-GCM recommended nonce length
 const KEY_BITS = 256;
 
-const $ = (id) => document.getElementById(id);
-const statusEl = $("status");
+const hasDOM = typeof document !== "undefined";
+const $ = hasDOM ? (id) => document.getElementById(id) : () => null;
+const statusEl = hasDOM ? $("status") : null;
 
 function setStatus(msg, kind = "info") {
+  if (!statusEl) return;
   const prefix = kind === "error" ? "[ERROR] " : kind === "ok" ? "[OK] " : "[INFO] ";
   statusEl.textContent = prefix + msg;
 }
@@ -214,5 +216,17 @@ function bind() {
   });
 }
 
-bind();
-setStatus("准备就绪。你可以先点击“运行自检”。");
+if (hasDOM) {
+  bind();
+  setStatus("准备就绪。你可以先点击“运行自检”。");
+}
+
+export {
+  CHARSET,
+  encryptText,
+  decryptText,
+  bytesToBase4Chars,
+  base4CharsToBytes,
+  normalizeCipherInput,
+  assertCipherAlphabet,
+};
